@@ -51,7 +51,7 @@ button {
     background-color: green;
     color: white;
     position: relative;
-    left: -50px; /* "Evet" butonunu sola kaydırdım */
+    left: -50px;
 }
 
 #hayir {
@@ -59,7 +59,7 @@ button {
     color: white;
     position: absolute;
     left: 50px;
-    transition: left 0.2s, top 0.2s;
+    transition: transform 0.2s;
 }
 </style>
 </head>
@@ -94,9 +94,7 @@ function kac() {
         y > evet.top - 60 && y < evet.bottom + 60
     );
 
-    hayir.style.position = "fixed";
-    hayir.style.left = `${Math.max(10, Math.min(x, maxX))}px`;
-    hayir.style.top = `${Math.max(10, Math.min(y, maxY))}px`;
+    hayir.style.transform = `translate(${x}px, ${y}px)`;
 }
 </script>
 
