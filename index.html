@@ -55,8 +55,9 @@ button {
     background-color: red;
     color: white;
     position: absolute;
-    left: 100px; /* Başlangıçta "Evet" butonunun tam üstüne gelmesini önler */
-    transition: top 0.2s, left 0.2s; /* Butonun yumuşak kaçmasını sağlar */
+    left: 120px; /* "Evet" ile üst üste gelmemesi için */
+    top: 0;
+    transition: top 0.2s, left 0.2s;
 }
 </style>
 </head>
@@ -77,11 +78,11 @@ function evetTiklandi() {
 
 function kac() {
     let hayir = document.getElementById("hayir");
-    let maxX = window.innerWidth - hayir.offsetWidth - 20;
-    let maxY = window.innerHeight - hayir.offsetHeight - 20;
-    
-    let x = Math.random() * maxX;
-    let y = Math.random() * maxY;
+    let maxX = window.innerWidth - hayir.offsetWidth - 10;
+    let maxY = window.innerHeight - hayir.offsetHeight - 10;
+
+    let x = Math.max(10, Math.random() * maxX);
+    let y = Math.max(10, Math.random() * maxY);
 
     hayir.style.left = `${x}px`;
     hayir.style.top = `${y}px`;
@@ -90,4 +91,3 @@ function kac() {
 
 </body>
 </html>
-
