@@ -43,19 +43,20 @@ button {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    position: relative;
 }
 
 #evet {
     background-color: green;
     color: white;
-    position: relative; /* Butonun sabit kalmasını sağlar */
 }
 
 #hayir {
     background-color: red;
     color: white;
-    position: absolute; /* Sayfada kaçmasını sağlamak için */
-    left: 120px; /* Başlangıçta "Evet" butonunun üstüne gelmesini önler */
+    position: absolute;
+    left: 100px; /* Başlangıçta "Evet" butonunun tam üstüne gelmesini önler */
+    transition: top 0.2s, left 0.2s; /* Butonun yumuşak kaçmasını sağlar */
 }
 </style>
 </head>
