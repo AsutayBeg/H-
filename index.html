@@ -20,6 +20,7 @@ body {
     text-align: center;
     font-family: Arial, sans-serif;
     overflow: hidden;
+    position: relative;
 }
 
 img {
@@ -34,7 +35,7 @@ h2 {
 .buttons {
     margin-top: 20px;
     display: flex;
-    gap: 40px; /* Butonlar arasındaki mesafeyi artırdım */
+    gap: 40px;
     position: relative;
 }
 
@@ -43,21 +44,22 @@ button {
     font-size: 16px;
     border: none;
     cursor: pointer;
-    position: relative;
+    position: absolute;
 }
 
 #evet {
     background-color: green;
     color: white;
+    left: -60px; /* Evet'i sola kaydırdım */
     position: relative;
-    left: -50px; /* "Evet" butonunu sola kaydırdım */
 }
 
 #hayir {
     background-color: red;
     color: white;
-    position: absolute;
-    left: 50px; /* "Hayır" butonu başlangıçta sağda olacak */
+    left: 60px; /* Hayır başlangıçta sağda */
+    top: 0;
+    transition: left 0.2s, top 0.2s;
 }
 </style>
 </head>
@@ -78,11 +80,8 @@ function evetTiklandi() {
 
 function kac() {
     let hayir = document.getElementById("hayir");
-
-    // "Evet" butonunun koordinatlarını al
     let evet = document.getElementById("evet").getBoundingClientRect();
 
-    // Ekran boyutlarını al
     let maxX = window.innerWidth - hayir.offsetWidth - 20;
     let maxY = window.innerHeight - hayir.offsetHeight - 20;
 
@@ -94,14 +93,16 @@ function kac() {
     } while (
         x > evet.left - 50 && x < evet.right + 50 &&
         y > evet.top - 50 && y < evet.bottom + 50
-    ); // "Hayır" butonunun "Evet" butonunun üstüne gelmesini engelliyoruz
+    );
 
-    // "Hayır" butonunun ekrandan çıkmasını engelle
-    hayir.style.left = `${Math.max(10, Math.min(x, maxX))}px`;
-    hayir.style.top = `${Math.max(10, Math.min(y, maxY))}px`;
+    // Eğer buton ekran dışına çıkarsa, minimum ve maksimum değerleri ayarla
+    x = Math.max(10, Math.min(x, maxX));
+    y = Math.max(10, Math.min(y, maxY));
+
+    hayir.style.left = `${x}px`;
+    hayir.style.top = `${y}px`;
 }
 </script>
 
 </body>
 </html>
-
