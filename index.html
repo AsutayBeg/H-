@@ -25,7 +25,7 @@ body {
 }
 
 img {
-    width: 200px;
+    width: 150px;
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
@@ -33,7 +33,7 @@ img {
 
 h2 {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 20px;
     color: #333;
 }
 
@@ -45,8 +45,8 @@ h2 {
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 12px 24px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     border-radius: 25px;
@@ -57,7 +57,7 @@ button {
 #evet {
     background-color: #4CAF50;
     color: white;
-    left: -80px;
+    left: -60px;
     position: relative;
 }
 
@@ -69,7 +69,7 @@ button {
 #hayir {
     background-color: #f44336;
     color: white;
-    left: 80px;
+    left: 60px;
     top: 0;
     transition: left 0.3s, top 0.3s;
 }
@@ -81,16 +81,16 @@ button {
 /* Mobil için stil ayarları */
 @media (max-width: 600px) {
     img {
-        width: 150px;
+        width: 120px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     button {
-        padding: 12px 24px;
-        font-size: 16px;
+        padding: 10px 20px;
+        font-size: 14px;
     }
 
     .buttons {
@@ -109,7 +109,7 @@ button {
 
 <img src="https://img.ekstat.com/profiles/bi-de-benden-dinle-638007776676263729.jpg" alt="Sevimli Kedi">
 
-<h2>Benimle barışmak istiyor musun?</h2>
+<h2>Benimle barışır mısın aşkım bitanem meleğim elifim?</h2>
 <div class="buttons">
     <button id="evet" onclick="evetTiklandi()">Evet</button>
     <button id="hayir" onmouseover="kac()" ontouchstart="kac()">Hayır</button>
@@ -117,7 +117,6 @@ button {
 
 <script>
 function evetTiklandi() {
-    // Küçük bir animasyon ekleyelim
     const evetButonu = document.getElementById('evet');
     evetButonu.style.transform = 'scale(1.2)';
     setTimeout(() => {
@@ -130,15 +129,15 @@ function kac() {
     let hayir = document.getElementById("hayir");
     let evet = document.getElementById("evet").getBoundingClientRect();
 
+    // Hareket alanını kısıtla (mobil için daha dar bir alan)
     let maxX = window.innerWidth - hayir.offsetWidth - 20;
     let maxY = window.innerHeight - hayir.offsetHeight - 20;
 
+    // "Hayır" butonunun "Evet" butonundan en az 50px uzakta olmasını sağla
     let x, y;
-
-    // "Hayır" butonunun "Evet" butonuna çok yaklaşmamasını sağla
     do {
-        x = Math.random() * maxX;
-        y = Math.random() * maxY;
+        x = Math.random() * (maxX - 50) + 10; // 10px ile maxX-50px arasında rastgele
+        y = Math.random() * (maxY - 50) + 10; // 10px ile maxY-50px arasında rastgele
     } while (
         x > evet.left - hayir.offsetWidth - 50 && x < evet.right + 50 &&
         y > evet.top - hayir.offsetHeight - 50 && y < evet.bottom + 50
