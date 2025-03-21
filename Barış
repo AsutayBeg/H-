@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barış Teklifi</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+img {
+    width: 250px; /* Resim boyutu */
+    border-radius: 10px;
+}
+h2 {
+    margin-top: 20px;
+}
+.buttons {
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    position: absolute;
+}
+#evet {
+    background-color: green;
+    color: white;
+}
+#hayir {
+    background-color: red;
+    color: white;
+    position: fixed; /* Sayfada serbestçe hareket edebilmesi için */
+}
+</style>
+</head>
+<body>
+    <img src="https://img.ekstat.com/profiles/bi-de-benden-dinle-638007776676263729.jpg" alt="Sevimli Kedi">
+
+<h2>Benimle barışmak istiyor musun?</h2>
+<div class="buttons">
+    <button id="evet" onclick="evetTiklandi()">Evet</button>
+    <button id="hayir" onmouseover="kac()">Hayır</button>
+</div>
+
+<script>
+function evetTiklandi() {
+    window.open("https://www.instagram.com/zolyadkin/", "_blank"); // Hedef URL'yi buradan değiştirebilirsin
+}
+
+function kac() {
+    let hayir = document.getElementById("hayir");
+    let maxX = window.innerWidth - hayir.offsetWidth;
+    let maxY = window.innerHeight - hayir.offsetHeight;
+    
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+
+    hayir.style.left = x + "px";
+    hayir.style.top = y + "px";
+}
+</script>
+</body>
+</html>
