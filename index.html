@@ -75,10 +75,6 @@ button {
     transition: left 0.3s, top 0.3s;
 }
 
-#hayir:hover {
-    background-color: #e53935;
-}
-
 /* Mobil için stil ayarları */
 @media (max-width: 600px) {
     img {
@@ -130,23 +126,16 @@ function kac() {
     let hayir = document.getElementById("hayir");
     let evet = document.getElementById("evet").getBoundingClientRect();
 
-    // Hareket alanını kısıtla (mobil için daha dar bir alan)
     let maxX = window.innerWidth - hayir.offsetWidth - 20;
     let maxY = window.innerHeight - hayir.offsetHeight - 20;
 
-    // "Hayır" butonunun "Evet" butonundan en az 50px uzakta olmasını sağla
-    let x, y;
-    do {
-        x = Math.random() * (maxX - 50) + 10; // 10px ile maxX-50px arasında rastgele
-        y = Math.random() * (maxY - 50) + 10; // 10px ile maxY-50px arasında rastgele
-    } while (
-        x > evet.left - hayir.offsetWidth - 50 && x < evet.right + 50 &&
-        y > evet.top - hayir.offsetHeight - 50 && y < evet.bottom + 50
-    );
+    let minX = Math.max(10, evet.left - 100);
+    let maxXRestricted = Math.min(maxX, evet.right + 100);
+    let minY = Math.max(10, evet.top - 100);
+    let maxYRestricted = Math.min(maxY, evet.bottom + 100);
 
-    // Ekran sınırlarını aşmamasını sağla
-    x = Math.max(10, Math.min(x, maxX));
-    y = Math.max(10, Math.min(y, maxY));
+    let x = Math.random() * (maxXRestricted - minX) + minX;
+    let y = Math.random() * (maxYRestricted - minY) + minY;
 
     hayir.style.left = `${x}px`;
     hayir.style.top = `${y}px`;
@@ -154,7 +143,7 @@ function kac() {
 
 // Mobil cihazlar için dokunma olayı ekle
 document.getElementById('hayir').addEventListener('touchstart', function(e) {
-    e.preventDefault(); // Dokunma olayının varsayılan davranışını engelle
+    e.preventDefault();
     kac();
 });
 </script>
