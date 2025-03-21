@@ -19,47 +19,89 @@ body {
     flex-direction: column;
     text-align: center;
     font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f6d365, #fda085);
     overflow: hidden;
     position: relative;
 }
 
 img {
-    width: 250px;
-    border-radius: 10px;
+    width: 200px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
 }
 
 h2 {
     margin-top: 20px;
+    font-size: 24px;
+    color: #333;
 }
 
 .buttons {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
-    gap: 40px;
+    gap: 20px;
     position: relative;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 30px;
+    font-size: 18px;
     border: none;
     cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
     position: absolute;
 }
 
 #evet {
-    background-color: green;
+    background-color: #4CAF50;
     color: white;
-    left: -60px; /* Evet'i sola kaydırdım */
+    left: -80px;
     position: relative;
 }
 
+#evet:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
 #hayir {
-    background-color: red;
+    background-color: #f44336;
     color: white;
-    left: 60px; /* Hayır başlangıçta sağda */
+    left: 80px;
     top: 0;
-    transition: left 0.2s, top 0.2s;
+    transition: left 0.3s, top 0.3s;
+}
+
+#hayir:hover {
+    background-color: #e53935;
+}
+
+/* Mobil için stil ayarları */
+@media (max-width: 600px) {
+    img {
+        width: 150px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #evet, #hayir {
+        position: static;
+        margin: 5px 0;
+    }
 }
 </style>
 </head>
@@ -67,15 +109,21 @@ button {
 
 <img src="https://img.ekstat.com/profiles/bi-de-benden-dinle-638007776676263729.jpg" alt="Sevimli Kedi">
 
-<h2>Benimle barışır mısın, Elifim bitanem aşkım? </h2>
+<h2>Benimle barışmak istiyor musun?</h2>
 <div class="buttons">
     <button id="evet" onclick="evetTiklandi()">Evet</button>
-    <button id="hayir" onmouseover="kac()">Hayır</button>
+    <button id="hayir" onmouseover="kac()" ontouchstart="kac()">Hayır</button>
 </div>
 
 <script>
 function evetTiklandi() {
-    window.open("https://www.instagram.com/zolyadkin/", "_blank"); 
+    // Küçük bir animasyon ekleyelim
+    const evetButonu = document.getElementById('evet');
+    evetButonu.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        evetButonu.style.transform = 'scale(1)';
+        window.open("https://www.instagram.com/zolyadkin/", "_blank");
+    }, 300);
 }
 
 function kac() {
@@ -87,25 +135,28 @@ function kac() {
 
     let x, y;
 
+    // "Hayır" butonunun "Evet" butonuna çok yaklaşmamasını sağla
     do {
         x = Math.random() * maxX;
         y = Math.random() * maxY;
     } while (
-        x > evet.left - 50 && x < evet.right + 50 &&
-        y > evet.top - 50 && y < evet.bottom + 50
+        x > evet.left - hayir.offsetWidth - 50 && x < evet.right + 50 &&
+        y > evet.top - hayir.offsetHeight - 50 && y < evet.bottom + 50
     );
 
-    // Eğer buton ekran dışına çıkarsa, minimum ve maksimum değerleri ayarla
+    // Ekran sınırlarını aşmamasını sağla
     x = Math.max(10, Math.min(x, maxX));
     y = Math.max(10, Math.min(y, maxY));
 
     hayir.style.left = `${x}px`;
     hayir.style.top = `${y}px`;
 }
-</script>
 
-</body>
-</html>
+// Mobil cihazlar için dokunma olayı ekle
+document.getElementById('hayir').addEventListener('touchstart', function(e) {
+    e.preventDefault(); // Dokunma olayının varsayılan davranışını engelle
+    kac();
+});
 </script>
 
 </body>
